@@ -1,0 +1,72 @@
+<nav is="flynt-navigation-main" class="flyntComponent" aria-label="{{ __("Main", "flynt") }}">
+          
+  <div class="wrapper">
+    <div class="container centerMaxWidthContainer themeBlack">     
+      <div class="navbar-brand">
+        <a class="logo" href="{{ site.link }}">
+          <img class="logo-image" src="{{ logo.src }}" alt="{{ logo.alt }}">
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+        
+      {% if menu %}
+			<div class="menu is-white">
+				<nav class="navbar" id="main-nav" role="navigation" aria-label="main navigation">
+					
+          <div id="navbarBasicExample" class="navbar-menu">
+    					<div class="navbar-start">
+                {% for item in menu.items %}
+                  {% set hasChildren = item.get_children is defined and item.get_children|length > 0 %}
+
+                    {% if hasChildren %}
+                        <div class="navbar-item has-dropdown is-hoverable" aria-haspopup="true">
+                          <a class="navbar-link {{ item.current ? 'is-active' }}" href="{{ item.link }}" {{ item.target == '_blank' ? 'target="_blank" rel="noopener noreferrer"' }}>{{ item.title }}</a>
+                        
+                          <div class="navbar-dropdown">	
+                            {% for item in item.get_children %}
+                              <a class="navbar-item {{ item.current ? 'is-active' }}" href="{{ item.link }}" {{ item.target == '_blank' ? 'target="_blank" rel="noopener noreferrer"' }}>{{ item.title }}</a>     
+                            {% endfor %}
+                          </div>
+
+                        </div>	
+                            {% else %}
+                        
+                        <a class="navbar-item {{ item.current ? 'is-active' }}" href="{{ item.link }}" {{ item.target == '_blank' ? 'target="_blank" rel="noopener noreferrer"' }}>{{ item.title }}</a>
+                      
+                    {% endif %}
+                {% endfor %}
+            <div class="navbar-end"> 
+              <div class="navbar item">
+                <div class="buttons">  
+                  <a href="/membership/" role="button" class="button button--small" style="margin-right: 10px;">BECOME A MEMBER</a>
+                  <a href="https://thearchr.salsalabs.org/maindonationpageforwebsite/index.html" role="button" class="button button--primary button--small" target="_blank" rel="noopener noreferrer">DONATE</a>	
+                </div>
+              </div>
+            </div>
+
+					</div>
+				</div>
+
+		  </nav>
+		</div>	
+			{% endif %}
+      
+      {# OLD SINGLE LEVEL MENU #}
+      {# {% if menu %}
+        <ul class="menu">
+          {% for item in menu.items %}
+            <li class="menu-item {{ item.current ? 'menu-item--current' }}">
+              <a class="menu-link" href="{{ item.link }}" {{ item.target == '_blank' ? 'target="_blank" rel="noopener noreferrer"' }}>{{ item.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %} #}
+      
+    </div> {# End container#}
+  </div> {# end wrapper #}
+</nav>
+
